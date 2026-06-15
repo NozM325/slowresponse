@@ -1,12 +1,11 @@
 from flask import Flask
 import time
+import random
 
 app = Flask(__name__)
 
 @app.route("/test-slow-endpoint")
 def test_slow_endpoint():
-    time.sleep(120)  # 2 min # 310 seconds = 5+ minutes
+    if random.random() < 0.3:  # 30% of requests
+        time.sleep(70)         # > 60 seconds
     return "done"
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
